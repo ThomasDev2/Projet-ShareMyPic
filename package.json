@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/ThomasDev2/Projet-ShareMyPic#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "http": "0.0.1-security",
+    "socket.io": "^4.2.0"
   }
 }
