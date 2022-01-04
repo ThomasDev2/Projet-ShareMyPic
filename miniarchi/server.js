@@ -4,14 +4,21 @@ const url = "mongodb://localhost:27017/";
 
 //server express
 const express=require('express');
+const bodyParser = require('body-parser');
 const app=express();
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 //const http=require('http').createServer(app);
-//app.use(express.static(__dirname));
+app.use(express.static(__dirname));
+app.use
 const port=3000;
 
 //générateur de template
-const swig=require('swig')
+const swig=require('swig');
 
+//pages servies
+//index page
 app.get('/',(req,res)=>{
     console.log('user connected');
     res.writeHead(200, { 'Content-Type': 'text/html' });
@@ -19,39 +26,54 @@ app.get('/',(req,res)=>{
     res.end();
 });
 
+//index script
 app.get('/client.js',(req,res)=>{
     console.log('chargement script client');
     res.sendFile('client.js');
-})
+});
 
-app.get('/button',(req,res)=>{
-    console.log('ajout dans la DB');
-    MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
-        var dbo = db.db("shareMyPic");
-        var myobj = { name: "test", address: "avec server" };
-        dbo.collection("Images").insertOne(myobj, function(err, res) {
-          if (err) throw err;
-          console.log("1 document inserted");
-          db.close();
-        });
-      });
-    
-})
+//Crud
 
-//envoie d'un item en DB
-/*
-MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db("shareMyPic");
-    var myobj = { name: "Company Inc", address: "Highway 37" };
-    dbo.collection("Images").insertOne(myobj, function(err, res) {
-      if (err) throw err;
-      console.log("1 document inserted");
-      db.close();
-    });
-  });
-*/
+//image CRUD
+//get -> READ
+app.get('/image',(req,res)=>{
 
-console.log('app running on port :' +port);
-app.listen(port);
+});
+//post -> CREATE
+app.post('/image',(req,res)=>{
+  
+});
+//delete -> DELETE 
+app.delete('/image',(req,res)=>{
+
+});
+//patch -> UPDATE 
+app.patch('/image',(req,res)=>{
+
+});
+
+//room CRUD
+//get -> READ
+app.get('/room',(req,res)=>{
+
+});
+//post -> CREATE
+app.post('/room',(req,res)=>{
+});
+//delete -> DELETE 
+app.delete('/room',(req,res)=>{
+
+});
+//patch -> UPDATE 
+app.patch('/room',(req,res)=>{
+
+});
+
+
+
+
+
+
+app.listen(port,()=>{
+  console.log('app running on port :' +port);
+});
