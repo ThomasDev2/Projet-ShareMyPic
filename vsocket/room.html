@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+    <html lang="fr">
+        <head>
+            <meta charset="utf-8">
+            <title>ShareMyPic</title>
+            <link rel="icon" href="data:,">  <!--To avoid favicon 404 errors -->
+            <link rel="stylesheet" href="style.css">
+            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+            <!-- Load the socket.io-client, which exposes an io global
+            (and the endpoint GET /socket.io/socket.io.js), and then connect-->
+            <script src="/socket.io/socket.io.js"></script>
+            <script src="room.js"></script> <!-- to clarify the code we moved this script to a seperated file -->
+        </head>
+        <body>
+            <div class="page_header">
+                <div class="title_div">
+                    <h1 id="main_title">Share my pic </h1>
+                </div>
+            </div>
+            <div class="page">
+                <form action="/image" method="post" id="img_form" name="img">
+                    <div class="img_form_div">
+                        <div class="input_div">
+                            <label for="img_title">Titre de l'image</label>
+                            <input type="text" id="img_title" name="title">
+                        </div>
+                        <div class="input_div">
+                            <label for="img_desc">Description de l'image</label>
+                            <textarea id="img_desc" name="description"></textarea>
+                        </div>
+                        <div class="input_div">
+                            <label for="img_file">Fichier de l'image </label>
+                            <input type="file" id="img_file" name="file">
+                        </div>
+                        <div class="input_div">
+                            <label for="img_validation">Cliquez pour envoyer </label>
+                            <input type="submit" id="img_submit" value="Envoyer">
+                        </div>    
+                    </div>
+                </form>
+            </div>
+            <div  id=testSpace>
+                <form action="" id="form">
+                    <input type="text" id="message" class="text" />
+                    <input type="submit" id="send" value="Envoyer mon message" class="submit" />
+                </form>
+                <ul id ="message_list"></ul>
+            </div>
+        </body>
+</html>
