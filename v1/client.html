@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="client.js"></script>
+        
+    
+    </head>
+    <body>
+        <div class="imgSender">
+            <h1>envoyer une image</h1>
+            <form method="post" action="/image" enctype="multipart/form-data">
+                
+                <label for="imgInput">image</label>
+                <input type="file" id=imgInput name="img"> 
+                
+              
+                    <label for="titleInput">titre</label>
+                    <input type="text" placeholder="titre" id="titleInput" name="title">
+                 
+                    <label for="descInput">descritption</label>
+                    <input type="text" placeholder="description" id="descInput" name="desc">
+             
+                    <input type = "submit" value="Valider">
+             
+            </form>
+        </div>
+        <div class="imgReader">
+            <h1>images deja envoyees</h1>
+            <img src="" alt="">
+        </div>
+        
+    </body>
+</html>
