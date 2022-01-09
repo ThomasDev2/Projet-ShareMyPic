@@ -15,9 +15,12 @@ app.set('view engine', 'html')
 app.use(express.static(__dirname));
 
 
+app.get('/',(req,res)=>{
+  res.render('login.html');
+});
 // Step 1 : how it works to serve html page
-app.get('/', (req, res) => {
-  res.render('client.html');
+app.get('/room', (req, res) => {
+  res.render('room.html');
 });
 
 app.get('/style.css',(req,res)=>{
