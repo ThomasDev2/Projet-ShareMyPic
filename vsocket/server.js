@@ -33,7 +33,7 @@ var io = require('socket.io')(http);
 // Listen on the connection event for incoming sockets and log it to the console.
 io.on('connection', (socket) => {
   console.log('a user connected ');
-  socket.emit('test');
+  io.emit('test');
 });
 
 const PORT = 3000;
