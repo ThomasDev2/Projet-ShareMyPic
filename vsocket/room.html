@@ -30,7 +30,7 @@
                         </div>
                         <div class="input_div">
                             <label for="img_file">Fichier de l'image </label>
-                            <input type="file" id="img_file" name="file">
+                            <input type="file" id="img_file" name="file" multiple="multiple">
                         </div>
                         <div class="input_div">
                             <label for="img_validation">Cliquez pour envoyer </label>
@@ -38,13 +38,13 @@
                         </div>    
                     </div>
                 </form>
+
+                <div id="sent_images">
+                    <h2>Images précedemment envoyées</h2>
+                </div>
             </div>
             <div  id=testSpace>
-                <form action="" id="form">
-                    <input type="text" id="message" class="text" />
-                    <input type="submit" id="send" value="Envoyer mon message" class="submit" />
-                </form>
-                <ul id ="message_list"></ul>
+                
             </div>
         </body>
 </html>

@@ -27,6 +27,14 @@ app.get('/style.css',(req,res)=>{
   res.sendFile('style.css');
 });
 
+app.get('/images',(req,res)=>{
+  res.sendFile('/img.png');
+  console.log('demande dimages recue on répond');
+});
+
+app.post('/images',(req,res)=>{
+  
+});
 
 // Step 2 : let us add the websocket part
 
@@ -37,6 +45,15 @@ var io = require('socket.io')(http);
 io.on('connection', (socket) => {
   console.log('a user connected ');
   io.emit('test');
+});
+
+// Chargement 
+io.on('connection',(socket)=>{
+  socket.on('img_posted',(socket)=>{
+    console.log('image posted par un client')
+    io.emit('load_images');
+    console.log('tout le monde reload')
+  });
 });
 
 const PORT = 3000;
