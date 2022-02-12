@@ -27,7 +27,7 @@ const upload=require('express-fileupload');
 app.get('/',(req,res)=>{
     console.log('user connected');
     res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.write(swig.renderFile('client.html'));
+    res.write(swig.renderFile('webrpg/index.html'));
     res.end();
 });
 

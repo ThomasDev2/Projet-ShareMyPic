@@ -15,15 +15,26 @@ app.set('view engine', 'html')
 app.use(express.static(__dirname));
 
 
+app.get('/',(req,res)=>{
+  res.render('login.html');
+});
 // Step 1 : how it works to serve html page
-app.get('/', (req, res) => {
-  res.render('client.html');
+app.get('/room', (req, res) => {
+  res.render('room.html');
 });
 
 app.get('/style.css',(req,res)=>{
   res.sendFile('style.css');
 });
 
+app.get('/images',(req,res)=>{
+  res.sendFile('/img.png');
+  console.log('demande dimages recue on répond');
+});
+
+app.post('/images',(req,res)=>{
+  
+});
 
 // Step 2 : let us add the websocket part
 
@@ -33,7 +44,16 @@ var io = require('socket.io')(http);
 // Listen on the connection event for incoming sockets and log it to the console.
 io.on('connection', (socket) => {
   console.log('a user connected ');
-  socket.emit('test');
+  io.emit('test');
+});
+
+// Chargement 
+io.on('connection',(socket)=>{
+  socket.on('img_posted',(socket)=>{
+    console.log('image posted par un client')
+    io.emit('load_images');
+    console.log('tout le monde reload')
+  });
 });
 
 const PORT = 3000;
