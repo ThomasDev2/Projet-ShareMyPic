@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SocketService } from 'src/app/service/socket.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-room',
@@ -8,8 +8,10 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./room.component.css']
 })
 export class RoomComponent implements OnInit {
-
-  constructor(private socketService:SocketService) { }
+  constructor(private socketService:SocketService) { 
+    this.socketService.listen('serverTestEvent')
+    .subscribe((data)=>{console.log('data recues : ' +data)})
+  }
 
   ngOnInit(): void {
   }

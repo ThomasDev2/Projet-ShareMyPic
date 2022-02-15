@@ -13,6 +13,8 @@ const cors=require('cors');
 io.on('connection', (socket) => {
   socket.on('testEvent',(data)=>{
     console.log('test recu : ' +data);
+    console.log('test renvoyés aux socket');
+    io.emit('serverTestEvent', data);
   });
 });
 

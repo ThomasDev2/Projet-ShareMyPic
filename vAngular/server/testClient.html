@@ -9,8 +9,11 @@
     <script>
         var socket = io();
         function btnclic(){
-            socket.emit('testEvent')
+            socket.emit('testEvent', 'test')
         }
+        socket.on('serverTestEvent',(data)=>{
+            console.log('data recues : '+data)
+        })
     </script>
 </body>
 
