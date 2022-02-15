@@ -10,6 +10,7 @@ import { DiaporamaComponent } from './component/diaporama/diaporama.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { SocketService } from './service/socket.service';
 
 @NgModule({
   declarations: [
@@ -25,9 +26,9 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

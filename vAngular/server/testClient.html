@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<head>
+    
+</head>
+<body>
+    <h1>client pour tester la co au socket</h1>
+    <button onclick="btnclic()">click for test</button>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        function btnclic(){
+            socket.emit('testEvent')
+        }
+    </script>
+</body>
+

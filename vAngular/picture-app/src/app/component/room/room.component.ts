@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SocketService } from 'src/app/service/socket.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-room',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoomComponent implements OnInit {
 
-  constructor() { }
+  constructor(private socketService:SocketService) { }
 
   ngOnInit(): void {
   }
-
+  onSendMessage(){
+    console.log('component : envoie dun test');
+    this.socketService.emit('testEvent','test')
+  }
 }
