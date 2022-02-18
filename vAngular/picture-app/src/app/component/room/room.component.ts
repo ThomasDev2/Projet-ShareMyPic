@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SocketService } from 'src/app/service/socket.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { InfoService } from 'src/app/service/info.service';
+import { InfoModel } from 'src/app/model/info-model';
+
 
 @Component({
   selector: 'app-room',
@@ -8,15 +11,25 @@ import { BehaviorSubject, Subscription } from 'rxjs';
   styleUrls: ['./room.component.css']
 })
 export class RoomComponent implements OnInit {
-  constructor(private socketService:SocketService) { 
-    this.socketService.listen('serverTestEvent')
-    .subscribe((data)=>{console.log('data recues : ' +data)})
+  infos:InfoModel={pseudo:"",roomId:""};
+  infoSubscription=new Subscription;
+  constructor(private socketService:SocketService,private infoService:InfoService) {
+    
+    this.infoSubscription=this.infoService.observableInfos
+      .subscribe((newInfos)=>{
+        this.infos=newInfos
+      });
+    
+    //écouter des events > this.socketService.on('event').subscribe((args)=>{actions});
+    this.socketService.on('serverTestEvent').subscribe();
   }
 
   ngOnInit(): void {
+    
   }
-  onSendMessage(){
-    console.log('component : envoie dun test');
+
+  //exemple d'emit
+  onSendTest(){
     this.socketService.emit('testEvent','test')
   }
 }

@@ -4,16 +4,25 @@
 </head>
 <body>
     <h1>client pour tester la co au socket</h1>
-    <button onclick="btnclic()">click for test</button>
+    <button onclick="btnTestMessageClic()">test message</button>
+    <button onclick="btnJoinClic()">join 1234</button>
+    
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
-        function btnclic(){
+        function btnTestMessageClic(){
             socket.emit('testEvent', 'test')
-        }
+        };
+        function btnJoinClic(){
+            socket.emit('login', {pseudo:'testpage',roomId:'1234'})
+        };
         socket.on('serverTestEvent',(data)=>{
             console.log('data recues : '+data)
-        })
+        });
+
+        socket.on('notifNewUser', (data)=>{
+            console.log(data)
+        });
     </script>
 </body>
 

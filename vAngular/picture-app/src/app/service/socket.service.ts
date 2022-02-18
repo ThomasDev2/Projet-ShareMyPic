@@ -11,15 +11,16 @@ export class SocketService {
   constructor() {
     this.socket=io(this.socketUrl);
   }
-  listen(event:string){
+  on(event:string){
     return new Observable((subscriber)=>{
       this.socket.on(event,(data:any)=>{
         subscriber.next(data);
+        console.log('data reçu du socket : '+ (data))
       });
     });
   };
   emit(event:string,data:any){
-    console.log('client socket : envoie de :'+data)
-    this.socket.emit(event,data);
+    console.log('data envoyé du socket : '+(data))
+    this.socket.emit(event,(data));
   }
 }
