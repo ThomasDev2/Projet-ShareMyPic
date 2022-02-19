@@ -3,12 +3,12 @@ const app = express();
 const http = require('http').createServer(app);
 const cors =require('cors');
 const env = require('dotenv');
-const mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var fs = require('fs');
+const mongoose = require('mongoose');
+var fs = require('fs'); // à rajouter
 var path = require('path');
 require('dotenv/config');
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false })) //ok express.json()
 app.use(bodyParser.json())
 
 env.config();

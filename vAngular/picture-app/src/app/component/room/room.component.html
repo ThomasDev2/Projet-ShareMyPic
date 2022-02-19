@@ -6,10 +6,20 @@
         <h2>Voici les images déjà envoyées</h2>
     </div>
     <div class="row">
-        <div *ngFor="let image of images">
-            <img src="{{image}}" class="img-thumbnail" alt="image failed to load" sizes="10% 10%">
+        <div *ngFor="let image of printedImages">
+            
+            <img src={{image}} class="img-thumbnail" alt="image failed to load" sizes="10% 10%">
         </div>
     </div>
+    <div class="row">
+        <h2>envoyer une nouvelle image</h2>
+    </div>
+    <!--
+    <div class="row">
+        <form class="reactive-form" (ngSubmit)="onSubmitImage();"></form>
+    </div>
+    -->
 </div>
 
 <button (click)="onSendTest();"> testMessage</button>
+<button (click)="onBtnUpdate();"> ubdateImages</button>

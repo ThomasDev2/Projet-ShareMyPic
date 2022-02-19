@@ -6,7 +6,42 @@
     <h1>client pour tester la co au socket</h1>
     <button onclick="btnTestMessageClic()">test message</button>
     <button onclick="btnJoinClic()">join 1234</button>
-    
+    <div>
+        <form action="/images" method="POST" enctype="multipart/form-data">
+            <div>
+                <label for="name">Image RoomId</label>
+                <input type="text" id="roomId" placeholder="roomId" value="" name="roomId" required/>
+            </div>
+            <div>
+                <label for="name">Image Title</label>
+                <input type="text" id="title" placeholder="title" value="" name="title" required/>
+            </div>
+            <div>
+                <label for="author">Auteur</label>
+                <input type="text" id="author" placeholder="Auteur" 
+                       value="" name="author" required/>
+            </div>
+            <div>
+                <label for="desc">Image Description</label>
+                <textarea id="desc" name="desc" value="" rows="2" 
+                          placeholder="Description" required>
+                </textarea>
+            </div>
+            <div>
+                <label for="image">Upload Image</label>
+                <input type="file" id="image" 
+                       name="image" value="" required/>
+            </div>
+           
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div>
+        <button onclick="btnSendImage();">get les images</button>
+        <ul id="imgDisplay"></ul>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
@@ -16,6 +51,29 @@
         function btnJoinClic(){
             socket.emit('login', {pseudo:'testpage',roomId:'1234'})
         };
+
+        function btnSendImage(){
+            xhr=new XMLHttpRequest;
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    console.log(xhr.response); // Par défault une DOMString
+                    
+                   
+                    for (let image of xhr.response.body.value){
+                        var list =document.getElementById('imgDisplay');console.log(1);
+                        var li = document.createElement("li");console.log(2);
+                        li.appendChild(document.createTextNode("Four"));console.log(3);
+                        li.setAttribute("id", "element4"); console.log(4);
+                        list.appendChild(li); console.log(5);
+                        
+                    }
+                }
+            }
+
+            xhr.open('GET','/images');
+            xhr.send()
+            
+        }
         socket.on('serverTestEvent',(data)=>{
             console.log('data recues : '+data)
         });
@@ -23,6 +81,8 @@
         socket.on('notifNewUser', (data)=>{
             console.log(data)
         });
+  
+    
     </script>
 </body>
 
