@@ -1,0 +1,27 @@
+const Image = require('../models/imgmodel');
+
+exports.createImage = (req, res) => {
+  const {name} = req.body;
+
+  let path = [];
+
+  if (req.files.length > 0) {
+    path = req.files.map((file) => {
+      return { img: file.filename };
+    });
+  }
+
+  const image = new IMage({
+    name,
+    path,
+    desc,
+    author
+  });
+
+  image.save((error, image) => {
+    if (error) return res.status(400).json({ error });
+    if (image) {
+      res.status(201).json({ image});
+    }
+  });
+};

@@ -1,0 +1,36 @@
+<div class="container">
+    <h1>Bienvenue sur notre Picture App</h1>
+    <h3>Projet de BOSTON Thomas et LUIS Flavien</h3>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <p>Ici on peut mettre une description de l'appli etc.. </p>
+        </div>
+        <div class="col">
+            <form [formGroup]=logInForm (ngSubmit)="onSubmitLogInForm();">
+                <div class="form-group">
+                    <div class="form-row">
+                        <label for="pseudoInput">Entrez un pseudonyme à utiliser dans la ROOM</label>
+                        <input type="text" id="nameInput" class="form-control" formControlName="pseudo" placeholder="Jacques">
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="roomIdInput">Entrez l'identifiant de la ROOM ou laissez vide pour en crée une nouvelle</label>
+                            <input type="text" id="roomIdInput" class="form-control" formControlName="roomId" placeholder="1234">
+                        </div >
+                        <div class="col">
+                            <label for="roomPinInput">Entrez le Code Pin de la ROOM</label>
+                            <input type="text" id="roomPinInput" class="form-control" formControlName="roomPin" placeholder="pin">
+                        </div >
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                           <input type="submit" value="Entrer" class="btn btn-primary"> 
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
