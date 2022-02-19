@@ -1,2 +1,15 @@
-<h1> bienvenu dans le room [room ID to be implemented</h1>
-<button (click)="onSendTest();"> sendMessage</button>
+<div class="container">
+    <h1> bienvenu dans le room {{infos.roomId}}</h1>
+</div>
+<div class="container">
+    <div class="row">
+        <h2>Voici les images déjà envoyées</h2>
+    </div>
+    <div class="row">
+        <div *ngFor="let image of images">
+            <img src="{{image}}" class="img-thumbnail" alt="image failed to load" sizes="10% 10%">
+        </div>
+    </div>
+</div>
+
+<button (click)="onSendTest();"> testMessage</button>

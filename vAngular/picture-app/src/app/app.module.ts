@@ -11,6 +11,7 @@ import { NavbarComponent } from './component/navbar/navbar.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SocketService } from './service/socket.service';
+import { PictureDetailComponent } from './component/picture-detail/picture-detail.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { SocketService } from './service/socket.service';
     RoomComponent,
     PictureFormComponent,
     DiaporamaComponent,
-    NavbarComponent
+    NavbarComponent,
+    PictureDetailComponent
   ],
   imports: [
     BrowserModule,

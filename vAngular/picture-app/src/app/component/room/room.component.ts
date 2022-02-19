@@ -10,9 +10,11 @@ import { InfoModel } from 'src/app/model/info-model';
   templateUrl: './room.component.html',
   styleUrls: ['./room.component.css']
 })
+
 export class RoomComponent implements OnInit {
   infos:InfoModel={pseudo:"",roomId:""};
   infoSubscription=new Subscription;
+  images=[];
   constructor(private socketService:SocketService,private infoService:InfoService) {
     
     this.infoSubscription=this.infoService.observableInfos
