@@ -5,23 +5,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './component/home/home.component';
 import { RoomComponent } from './component/room/room.component';
-import { PictureFormComponent } from './component/picture-form/picture-form.component';
-import { DiaporamaComponent } from './component/diaporama/diaporama.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SocketService } from './service/socket.service';
-import { PictureDetailComponent } from './component/picture-detail/picture-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     RoomComponent,
-    PictureFormComponent,
-    DiaporamaComponent,
-    NavbarComponent,
-    PictureDetailComponent
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

@@ -24,12 +24,13 @@ export class HomeComponent implements OnInit {
       .subscribe((newInfos)=>{
         this.infos=newInfos
       });
-
-    this.socketService.on('notifNewUser').subscribe();
+    //cette souscription  écoute le socket pour un message de nouvel arrivant dans la room
+    this.socketService.on('notifNewUser').subscribe(()=>{alert("nouvel arrivant")});
   }
 
   ngOnInit(): void {
   }
+  //cette fonction gère la connection des users en faisant appel au controller service
   onSubmitLogInForm():void{
     //on récupère les infos du form et on les stock dans le infos model local
     this.infos={pseudo:this.logInForm.value.pseudo,roomId:this.logInForm.value.roomId};
