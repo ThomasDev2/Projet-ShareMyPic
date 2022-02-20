@@ -38,6 +38,7 @@ const storage = multer.diskStorage({
 // quelque chose de brillant
 const upload = multer({ storage: storage });
 const imgModel = require('./models/imgmodel');
+const imgSchema = require('./models/imgmodel');
 
 //connexion à la db
 mongoose
@@ -66,8 +67,8 @@ app.get('/images', (req, res) => {
 
 //faut remplacer l'adresse du post par ce qu'on veut
 app.use(cors());
-app.post('/images', upload.single('image'), (req, res, next) => {
-  
+app.post('/images', upload.single('file'), (req, res, next) => {
+  console.log('roomId recu avec le body : '+(JSON.stringify(req.body)))
   var obj = {
       roomId: req.body.roomId,
       title: req.body.title,
@@ -78,7 +79,9 @@ app.post('/images', upload.single('image'), (req, res, next) => {
       },
       author: req.body.author
   }
-  imgModel.create(obj, (err, item) => {
+  console.log('obj juste avant create '+JSON.stringify(obj))
+  imgSchema.create(obj, (err, item) => {
+      console.log('obj dans create '+JSON.stringify(obj))
       if (err) {
           console.log(err);
           

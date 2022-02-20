@@ -14,11 +14,35 @@
     <div class="row">
         <h2>envoyer une nouvelle image</h2>
     </div>
-    <!--
+   
     <div class="row">
-        <form class="reactive-form" (ngSubmit)="onSubmitImage();"></form>
+        <form class="reactive-form" [formGroup]="imageForm" (ngSubmit)="onSubmitImage();">
+            <div class="form-group">
+                <label for="title">Image Title</label>
+                <input type="text" id="title" class="form-control" placeholder="title"  formControlName="title"  required/>
+            </div>
+            <div class="form-group">
+                <label for="desc">Image Description</label>
+                <textarea id="desc" rows="2" class="form-control" placeholder="Description"  formControlName="desc" required>
+                </textarea>
+            </div>
+            <div class="form-group">
+                <label for="file">Image File</label>
+                <input type="file" id="file" (change)="onFileSelect($event)" required/>
+            </div>
+            <div class="form-group">
+                <label for="roomId">Image Room</label>
+                <input type="text" id="roomId" class="form-control" value={{this.infos.roomId}} formControlName="roomId"  required/>
+            </div>
+            <div class="form-group">
+                <label for="author">Image Author</label>
+                <input type="text" id="Author" class="form-control" value={{this.infos.pseudo}} formControlName="author" required/>
+            </div>
+            <div class="form-group">
+                <button class="btn" type="submit">Ajouter</button>
+            </div>
+        </form>
     </div>
-    -->
 </div>
 
 <button (click)="onSendTest();"> testMessage</button>

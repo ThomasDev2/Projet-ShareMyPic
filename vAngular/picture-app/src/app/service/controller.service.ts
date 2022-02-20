@@ -26,4 +26,20 @@ export class ControllerService {
     return this.http.get<ImageModel[]>(ImgUrl,{params:params})
   }
 
+  postImages(file:File,body:any){
+    console.log("controller : envoie du body : " + JSON.stringify(body))
+    const formData: FormData = new FormData();
+    console.log(body.roomId)
+    formData.append('roomId',body.roomId);
+    formData.append('title',body.title);
+    formData.append('file',file,file.name);
+    formData.append('desc',body.desc);
+    formData.append('author',body.author);
+
+    this.http.post<any>(ImgUrl,formData)
+    .subscribe((response)=>{  
+      console.log('reponse du server : '+ JSON.stringify(response))
+    })
+  }
+
 }
