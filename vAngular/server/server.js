@@ -57,8 +57,25 @@ mongoose
 app.use(cors());
 app.get('/images', (req, res) => {
   var roomId=req.query.roomId;
+  var desc=req.query.desc;
+  console.log('desc : ' + desc)
   console.log('images demandés pour la room : '+ roomId)
+  if(desc == undefined){
+
+  
   imgModel.find({roomId:roomId}, (err, items) => {
+    if (err) {
+        console.log(err);
+        res.status(500).send('An error occurred', err);
+    }
+    else {
+      res.send(items)
+    }
+  });
+  }
+  else{
+    imgModel.find({roomId:roomId,desc:desc}, (err, items) => {
+      console.log('je rentre dans le filtre')
       if (err) {
           console.log(err);
           res.status(500).send('An error occurred', err);
@@ -66,32 +83,39 @@ app.get('/images', (req, res) => {
       else {
         res.send(items)
       }
-  });
+    });
+  }
+
 });
+
+
 
 //recepetion d'un post, on crée l'image dans la db à partir du file et des champs du body
 app.use(cors());
-app.post('/images', upload.single('file'), (req, res, next) => {
-  var obj = {
+app.post('/images', upload.array('file'), (req, res, next) => {
+  var n=req.files.length;
+  for(i=0;i<n;i++){
+    var obj = {
       roomId: req.body.roomId,
       title: req.body.title,
       desc: req.body.desc,
       content:{
-        data: fs.readFileSync(__dirname + '/storage/' + req.file.filename),
+        data: fs.readFileSync(__dirname + '/storage/' + req.files[i].filename),
         contentType: 'image/png'
       },
       author: req.body.author
-  }
-  imgSchema.create(obj, (err, item) => {
+    }
+    imgSchema.create(obj, (err, item) => {
       if (err) {
-          console.log(err);
+        console.log(err);
           
       }
-      else {
-          res.send({response:'image crée'})
-          item.save();
+      else {      
+        item.save();
       }
-  });
+    });
+  }
+  res.send({response:'image crée'})
 });
 
 //reception d'un delete on supprime l'image correspondant à l'id passé en parametre

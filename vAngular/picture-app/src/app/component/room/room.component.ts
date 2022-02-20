@@ -39,8 +39,13 @@ export class RoomComponent implements OnInit {
     author:new FormControl('')
 
   })
+
+  searchForm=new FormGroup({
+    desc:new FormControl('')
+  })
   //file téléversé dans le champ file
   fileToUpload: File | null = null;
+  filesToUpload:FileList |null=null;
 
   //id de l'image selctionner pour délétion/update
   selectedId=""
@@ -94,8 +99,8 @@ export class RoomComponent implements OnInit {
 
   //cette fonction poste au server via l'intermédiaire du controller service le form et le fichier associé à une nouvelle image  
   onSubmitImage(){
-    if(this.fileToUpload !== null){
-      this.controllerService.postImages(this.fileToUpload,this.imageForm.value)
+    if(this.filesToUpload !== null){
+      this.controllerService.postImages(this.filesToUpload,this.imageForm.value)
       this.socketService.emit('newImage',this.infos.roomId);
     }
     else{
@@ -108,6 +113,7 @@ export class RoomComponent implements OnInit {
     var data:FileList |null
     data=(<HTMLInputElement>e.target).files
     if (data !== null){
+      this.filesToUpload=data
       this.fileToUpload=data.item(0);
     }
   }
@@ -137,5 +143,11 @@ export class RoomComponent implements OnInit {
     this.controllerService.deleteImage(this.selectedId);
     this.socketService.emit('newImage',this.imageForm.value.roomId);
   }
-  
+  onFindByDesc(){
+    var toSearch=this.searchForm.value.desc;
+    this.controllerService.getByDesc(this.infos.roomId,toSearch)
+    .subscribe((fetchedImages)=>{
+      this.images=fetchedImages;
+    })
+  }
 }

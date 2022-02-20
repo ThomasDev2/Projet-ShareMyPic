@@ -1,5 +1,5 @@
 <div class="container">
-    <h1> bienvenu dans le room {{infos.roomId}}</h1>
+    <h1> Bienvenue dans la room {{infos.roomId}}</h1>
 </div>
 <div class="container">
     <div class="row" >
@@ -60,7 +60,7 @@
             </div>
             <div class="form-group">
                 <label for="file">Image File</label>
-                <input type="file" id="file" (change)="onFileSelect($event)" required/>
+                <input type="file" multiple id="file" (change)="onFileSelect($event)" required/>
             </div>
             <div class="form-group">
                 <label for="roomId">Image Room</label>
@@ -75,8 +75,20 @@
             </div>
         </form>
     </div>
+    <div class ="container">
+        <div class="row">
+            <form class="reactive-form" [formGroup]="searchForm" (ngSubmit)="onFindByDesc();">
+                <div class="form-group">
+                    <label for="desc">Chercher par comment</label>
+                    <input type="text" id="desc" class="form-control" placeholder="desc"  formControlName="desc"  required/>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">chercher</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-<button class="btn btn-primary" (click)="onSendTest();"> testMessage</button>
-<button class="btn btn-primary" (click)="onBtnUpdate();"> ubdateImages</button>
+<button class="btn btn-primary" (click)="onBtnUpdate();"> Reload</button>
 <button class="btn btn-primary" (click)="onUpdateImage()">Update selected image</button>
 <button class="btn btn-primary" (click)="onDeleteImage()">Delete selected image</button>

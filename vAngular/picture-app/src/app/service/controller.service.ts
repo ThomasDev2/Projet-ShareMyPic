@@ -28,12 +28,24 @@ export class ControllerService {
     var params=new HttpParams().set('roomId',roomId)
     return this.http.get<ImageModel[]>(ImgUrl,{params:params})
   }
+
+  getByDesc(roomId:string,desc:string){
+    var params=new HttpParams().set('desc',desc).set('roomId',roomId)
+    return this.http.get<ImageModel[]>(ImgUrl,{params:params})
+  }
   //post une nouvelle image
-  postImages(file:File,body:any){
+  postImages(files:FileList,body:any){
     const formData: FormData = new FormData();
     formData.append('roomId',body.roomId);
     formData.append('title',body.title);
-    formData.append('file',file,file.name);
+    var filearray=[]
+    var n=files.length
+    for(let i=0;i<n;i++){
+      var aux=files.item(i);
+      if(aux!==null){
+        formData.append('file',aux,aux.name) 
+      }
+    }
     formData.append('desc',body.desc);
     formData.append('author',body.author);
 
