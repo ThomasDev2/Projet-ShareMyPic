@@ -1,7 +1,7 @@
 
 import { Buffer } from "buffer";
 export interface ImageModel{
-    id:number,
+    _id:string,
     title: string,
     content:{
         data:Buffer,

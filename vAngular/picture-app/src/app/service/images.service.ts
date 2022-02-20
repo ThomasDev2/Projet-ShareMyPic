@@ -8,7 +8,7 @@ import { Buffer } from 'buffer';
   providedIn: 'root'
 })
 export class ImagesService {
-  imagesSource=new BehaviorSubject([{id:-1,title:"",content:{data:Buffer.alloc(0),contentType:''},desc:'',author:''}]);
+  imagesSource=new BehaviorSubject([{_id:"",title:"",content:{data:Buffer.alloc(0),contentType:''},desc:'',author:''}]);
   observableImages=this.imagesSource.asObservable();
   constructor(private controllerService:ControllerService) { }
   setImages(roomId:string):void{

@@ -1,3 +1,4 @@
+//creation du server express
 const express = require('express');
 const app = express();
 const http = require('http');
@@ -5,11 +6,14 @@ const server = http.createServer(app);
 
 
 const { Server } = require("socket.io");
+
+//creation du socket pour les demandes synchrones
 const io = new Server(server,{cors: {
   origin: "http://localhost:4200",
   methods: ["GET", "POST"]
 }});
 
+//module permettant de récupérer la configuration d'autres modules
 const env = require('dotenv');
 env.config();
 
@@ -18,7 +22,7 @@ const cors=require('cors');
 //module file sync uilisé pour manipuler des fichiers
 const fs=require('fs');
 
-//module mongoose nous permetand d'intéragier avec mongo db
+//module mongoose nous permetant d'intéragir avec mongo db
 const mongoose = require('mongoose');
 
 
@@ -35,12 +39,12 @@ const storage = multer.diskStorage({
   }
 });
 
-// quelque chose de brillant
+//module multer permet de gérer les téléchargements des images dans la db
 const upload = multer({ storage: storage });
 const imgModel = require('./models/imgmodel');
 const imgSchema = require('./models/imgmodel');
 
-//connexion à la db
+//connexion à la db grace au module mongoose
 mongoose
   .connect(process.env.MONGO_URL,
   { useNewUrlParser: true, useUnifiedTopology: true }, err => {
@@ -49,7 +53,7 @@ mongoose
 
 //controller des acces a la db d'images
 
-//faut remplacer l'adresse du get par ce qu'on veut
+//reception d'une requete get le on cherche les images de la room passé en parametre de requete
 app.use(cors());
 app.get('/images', (req, res) => {
   var roomId=req.query.roomId;
@@ -65,10 +69,9 @@ app.get('/images', (req, res) => {
   });
 });
 
-//faut remplacer l'adresse du post par ce qu'on veut
+//recepetion d'un post, on crée l'image dans la db à partir du file et des champs du body
 app.use(cors());
 app.post('/images', upload.single('file'), (req, res, next) => {
-  console.log('roomId recu avec le body : '+(JSON.stringify(req.body)))
   var obj = {
       roomId: req.body.roomId,
       title: req.body.title,
@@ -79,22 +82,40 @@ app.post('/images', upload.single('file'), (req, res, next) => {
       },
       author: req.body.author
   }
-  console.log('obj juste avant create '+JSON.stringify(obj))
   imgSchema.create(obj, (err, item) => {
-      console.log('obj dans create '+JSON.stringify(obj))
       if (err) {
           console.log(err);
           
       }
       else {
-          // faut mettre l'endroit où on veut être redirect, ou juste changer le retour de la fonction d'ailleurs
-          res.redirect('/testClients');
+          res.send({response:'image crée'})
           item.save();
       }
   });
 });
 
+//reception d'un delete on supprime l'image correspondant à l'id passé en parametre
+app.use(cors())
+app.delete('/images',(req,res)=>{
+  var id=req.query._id;
+  console.log("deletion de l'image : "+id)
+  imgModel.deleteOne({_id:id},err=>{
+    if(err) console.log(err)
+  });
+  res.send({response:'ok'})
+})
 
+app.use(express.json());
+app.patch('/images',(req,res)=>{
+  
+  var id=req.query._id;
+  console.log("mise à jour de l'image : "+id +"avec les nouvelles infos : "+ req.body)
+  
+  imgModel.updateOne({_id:id},{title:req.body.title,author:req.body.author,desc:req.body.desc},(err)=>{
+    if(err) console.log(err)
+  });
+  res.send({response:'ok'})
+})
 
 //connection d'un client au socket
 io.on('connection', (socket)=>{
@@ -127,6 +148,13 @@ io.on('connection',(socket)=>{
   
 })
 
+io.on('connection',(socket)=>{
+  socket.on('newImage',(roomId)=>{
+    console.log('image postée dans la room '+roomId)
+    console.log('on demande aux sockets de la room de faire une Maj de leurs images')
+    io.to(roomId).emit('updateImages','maj images')
+  })
+})
 app.use(cors());
 app.use(express.static(__dirname))
 app.use(express.json()); // nouvelle fonctionnalité d'express qui 

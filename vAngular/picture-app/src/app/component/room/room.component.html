@@ -2,13 +2,45 @@
     <h1> bienvenu dans le room {{infos.roomId}}</h1>
 </div>
 <div class="container">
+    <div class="row" >
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="/asset/img1.png" alt="First slide">
+                </div>
+                <div class="carousel-item" *ngFor="let image of printedImages;let index=index">
+                    <img class="d-block w-100" src={{image}} alt="First slide">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>{{this.images[index].title}}</h5>
+                        <p>{{this.images[index].desc}}</p>
+                    </div>
+                </div>
+              
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+    </div>
+  
     <div class="row">
         <h2>Voici les images déjà envoyées</h2>
     </div>
     <div class="row">
-        <div *ngFor="let image of printedImages">
+        <div *ngFor="let image of printedImages;let index=index;">
             
-            <img src={{image}} class="img-thumbnail" alt="image failed to load" sizes="10% 10%">
+            <img src={{image}}  (click)="selectedId=images[index]._id;" class="img-thumbnail" alt="image failed to load" sizes="10% 10%">
+            <div *ngIf="selectedId==images[index]._id">
+                <h5>selected</h5>
+                <p>title : {{images[index].title}}</p>
+                <p>desc : {{images[index].desc}}</p>
+                <p>author : {{images[index].author}}</p>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -39,11 +71,12 @@
                 <input type="text" id="Author" class="form-control" value={{this.infos.pseudo}} formControlName="author" required/>
             </div>
             <div class="form-group">
-                <button class="btn" type="submit">Ajouter</button>
+                <button class="btn btn-primary" type="submit">Ajouter</button>
             </div>
         </form>
     </div>
 </div>
-
-<button (click)="onSendTest();"> testMessage</button>
-<button (click)="onBtnUpdate();"> ubdateImages</button>
+<button class="btn btn-primary" (click)="onSendTest();"> testMessage</button>
+<button class="btn btn-primary" (click)="onBtnUpdate();"> ubdateImages</button>
+<button class="btn btn-primary" (click)="onUpdateImage()">Update selected image</button>
+<button class="btn btn-primary" (click)="onDeleteImage()">Delete selected image</button>
